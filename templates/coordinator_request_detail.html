@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h2>Request Details</h2>
+    <a href="{{ url_for('coordinator_dashboard') }}" class="btn btn-outline-secondary">Back</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Student Information</h5>
+                <p><strong>Name:</strong> {{ student.name if student else request_record.student_id }}</p>
+                <p><strong>Student ID:</strong> {{ request_record.student_id }}</p>
+                <p><strong>Type:</strong> {{ request_record.request_type }}</p>
+                <p><strong>Leave from:</strong> {{ request_record.start_date }}</p>
+                <p><strong>Leave to:</strong> {{ request_record.end_date }}</p>
+                <p><strong>Reason:</strong> {{ request_record.reason }}</p>
+                <p><strong>Organization / Hospital:</strong> {{ request_record.organization_name or 'N/A' }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Document & OCR</h5>
+                {% if document %}
+                    <p><strong>File:</strong> {{ document.original_name }}</p>
+                    <p><strong>Extracted Name:</strong> {{ document.extracted_name or 'Not detected' }}</p>
+                    <p><strong>Leave from:</strong> {{ document.extracted_date or 'Not detected' }}</p>
+                    <p><strong>Leave to:</strong> {{ request_record.end_date or 'Not detected' }}</p>
+                    <p><strong>Extracted Organization:</strong> {{ document.extracted_organization or 'Not detected' }}</p>
+                    <p><strong>OCR Text:</strong></p>
+                    <pre class="bg-light p-2 rounded">{{ document.ocr_text or 'OCR text unavailable.' }}</pre>
+                {% else %}
+                    <p class="text-muted">No document uploaded.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="POST" class="mt-4">
+    <div class="mb-3">
+        <label class="form-label">Coordinator Note</label>
+        <textarea class="form-control" name="coordinator_note" rows="3"></textarea>
+    </div>
+    <div class="d-flex gap-2">
+        <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+    </div>
+</form>
+{% endblock %}

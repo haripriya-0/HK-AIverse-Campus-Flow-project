@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h2>HOD Review</h2>
+    <a href="{{ url_for('hod_dashboard') }}" class="btn btn-outline-secondary">Back</a>
+</div>
+
+{% if exceeded %}
+<div class="alert alert-warning">
+    Warning: This leave request exceeds the default OD limit of 10 days. You may still approve it by entering a reason.
+</div>
+{% endif %}
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Request Summary</h5>
+                <p><strong>Student:</strong> {{ student.name if student else request_record.student_id }}</p>
+                <p><strong>Type:</strong> {{ request_record.request_type }}</p>
+                <p><strong>Leave from:</strong> {{ request_record.start_date }}</p>
+                <p><strong>Leave to:</strong> {{ request_record.end_date }}</p>
+                <p><strong>Reason:</strong> {{ request_record.reason }}</p>
+                <p><strong>Organization:</strong> {{ request_record.organization_name or 'N/A' }}</p>
+                <p><strong>OD Days:</strong> {{ od_days }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Document & OCR</h5>
+                {% if document %}
+                    <p><strong>File:</strong> {{ document.original_name }}</p>
+                    <p><strong>OCR Name:</strong> {{ document.extracted_name or 'Not detected' }}</p>
+                    <p><strong>Leave from:</strong> {{ document.extracted_date or 'Not detected' }}</p>
+                    <p><strong>Leave to:</strong> {{ request_record.end_date or 'Not detected' }}</p>
+                    <p><strong>OCR Organization:</strong> {{ document.extracted_organization or 'Not detected' }}</p>
+                    <pre class="bg-light p-2 rounded">{{ document.ocr_text or 'No OCR text available.' }}</pre>
+                {% else %}
+                    <p class="text-muted">No supporting document uploaded.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Timetable impact</h5>
+        <p class="text-muted">These lecture periods will be marked as present when the HOD approves the request.</p>
+        {% if timetable_rows %}
+        <div class="accordion" id="timetableAccordion">
+            {% for row in timetable_rows %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-{{ loop.index }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop.index }}" aria-expanded="false" aria-controls="collapse-{{ loop.index }}">
+                        {{ row.date }}
+                    </button>
+                </h2>
+                <div id="collapse-{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ loop.index }}" data-bs-parent="#timetableAccordion">
+                    <div class="accordion-body p-0">
+                        {% if row.periods %}
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for period in row.periods %}
+                                <tr>
+                                    <td>{{ period.subject }}</td>
+                                    <td>{{ period.start_time }}</td>
+                                    <td>{{ period.end_time }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p class="text-muted mb-0 p-3">No timetable entries for this date.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">No timetable data for the selected dates.</p>
+        {% endif %}
+    </div>
+</div>
+
+<form method="POST" class="mt-4">
+    {% if exceeded %}
+    <div class="mb-3">
+        <label class="form-label">Override reason</label>
+        <textarea class="form-control" name="override_reason" rows="3" required></textarea>
+    </div>
+    {% endif %}
+    <div class="mb-3">
+        <label class="form-label">HOD Note</label>
+        <textarea class="form-control" name="hod_note" rows="3"></textarea>
+    </div>
+    <div class="d-flex gap-2">
+        <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+    </div>
+</form>
+{% endblock %}

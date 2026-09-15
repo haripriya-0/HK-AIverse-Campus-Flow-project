@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Department Permission Details</h2>
+    <a href="{{ url_for('department_permissions') }}" class="btn btn-outline-secondary">Back</a>
+</div>
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card shadow-sm"><div class="card-body">
+            <h5 class="card-title">Request Details</h5>
+            <p><strong>Event:</strong> {{ permission.event_name }}</p>
+            <p><strong>Organization:</strong> {{ permission.organization or 'N/A' }}</p>
+            <p><strong>Date:</strong> {{ format_date_for_display(permission.date) }}</p>
+            <p><strong>Time:</strong> {{ permission.start_time }} to {{ permission.end_time }}</p>
+            <p><strong>Venue:</strong> {{ permission.venue or 'N/A' }}</p>
+            <p><strong>Purpose:</strong> {{ permission.purpose }}</p>
+            <p><strong>Reason:</strong> {{ permission.reason or 'N/A' }}</p>
+            <p class="mb-0"><strong>Status:</strong> <span class="badge bg-info text-dark">{{ permission.status }}</span></p>
+        </div></div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card shadow-sm"><div class="card-body">
+            <h5 class="card-title">Approval History</h5>
+            <p><strong>Submitted:</strong> {{ permission.created_at }}</p>
+            {% if permission.status != 'Pending Coordinator' %}
+                <p><strong>Coordinator:</strong> {{ 'Approved' if permission.status in ['Pending HOD', 'Approved'] else 'Rejected' }}</p>
+                <p><strong>Coordinator remark:</strong> {{ permission.coordinator_remark or 'No remark' }}</p>
+            {% endif %}
+            {% if permission.status == 'Pending HOD' %}<p><strong>HOD:</strong> Pending review</p>{% endif %}
+            {% if permission.status == 'Approved' %}<p><strong>HOD:</strong> Approved</p><p><strong>HOD remark:</strong> {{ permission.hod_remark or 'No remark' }}</p>{% endif %}
+            {% if permission.status == 'Rejected' and permission.hod_remark is not none %}<p><strong>HOD:</strong> Rejected</p><p><strong>HOD remark:</strong> {{ permission.hod_remark or 'No remark' }}</p>{% endif %}
+            {% if permission.document_path %}<a href="{{ url_for('uploaded_file', filename=permission.document_path) }}" target="_blank">View supporting document</a>{% else %}<p class="text-muted mb-0">No supporting document.</p>{% endif %}
+        </div></div>
+    </div>
+</div>
+{% endblock %}

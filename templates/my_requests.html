@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">My Requests</h2>
+{% if requests %}
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Dates</th>
+                <th>Status</th>
+                <th>Document</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requests %}
+            <tr>
+                <td>{{ req.request_type }}</td>
+                <td>{{ req.start_date }} to {{ req.end_date }}</td>
+                <td>
+                    <span class="badge bg-info text-dark">{{ req.status }}</span>
+                </td>
+                <td>
+                    {% if req.document %}
+                        <a href="{{ url_for('uploaded_file', filename=req.document.filename) }}" target="_blank">View</a>
+                    {% else %}
+                        No document
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="text-muted">No requests submitted yet.</p>
+{% endif %}
+{% endblock %}

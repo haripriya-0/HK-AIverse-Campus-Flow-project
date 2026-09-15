@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Camus Flow - Student Permission and Leave Management System</h2>
+{% if requests %}
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requests %}
+            <tr>
+                <td>{{ req.student.name if req.student else req.student_id }}</td>
+                <td>{{ req.request_type }}</td>
+                <td>{{ req.start_date }} to {{ req.end_date }}</td>
+                <td><span class="badge bg-warning text-dark">{{ req.status }}</span></td>
+                <td><a href="{{ url_for('coordinator_request_detail', request_id=req.id) }}" class="btn btn-sm btn-primary">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="text-muted">No pending requests.</p>
+{% endif %}
+
+<h2 class="mb-4 mt-5" id="department-permissions">Department Permissions</h2>
+{% if permission_requests %}
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead><tr><th>Student</th><th>Event</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+        {% for permission in permission_requests %}
+            <tr>
+                <td>{{ permission.student.name if permission.student else permission.student_id }}</td>
+                <td>{{ permission.event_name }}</td>
+                <td>{{ format_date_for_display(permission.date) }}</td>
+                <td><span class="badge bg-warning text-dark">{{ permission.status }}</span></td>
+                <td><a href="{{ url_for('coordinator_permission_detail', permission_id=permission.id) }}" class="btn btn-sm btn-primary">Review</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}<p class="text-muted">No department permissions awaiting coordinator review.</p>{% endif %}
+{% endblock %}

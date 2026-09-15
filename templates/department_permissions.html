@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Department Permissions</h2>
+    <a href="{{ url_for('department_permission_submit') }}" class="btn btn-primary">New Permission</a>
+</div>
+{% if permissions %}
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead><tr><th>Event</th><th>Date</th><th>Status</th><th>Last Updated</th></tr></thead>
+        <tbody>
+        {% for permission in permissions %}
+            <tr>
+                <td><a href="{{ url_for('department_permission_detail', permission_id=permission.id) }}">{{ permission.event_name }}</a></td>
+                <td>{{ format_date_for_display(permission.date) }}</td>
+                <td><span class="badge bg-info text-dark">{{ permission.status }}</span></td>
+                <td>{{ permission.updated_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}<p class="text-muted">No department permissions submitted yet.</p>{% endif %}
+{% endblock %}

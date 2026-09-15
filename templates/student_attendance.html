@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Attendance</h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in attendance %}
+            <tr>
+                <td>{{ format_date_for_display(row.attendance_date) }}</td>
+                <td>{{ row.subject }}</td>
+                <td>{{ row.status }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" class="text-center text-muted">No attendance data found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

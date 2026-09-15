@@ -1,0 +1,7 @@
+Flask==3.0.3
+mysql-connector-python==9.0.0
+pytesseract==0.3.10
+Pillow==10.4.0
+pypdf==5.1.0
+requests==2.32.3
+python-dotenv==1.0.1

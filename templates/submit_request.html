@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Submit OD / Medical Leave Request</h2>
+<form method="POST" enctype="multipart/form-data">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Type</label>
+            <select class="form-select" name="request_type" required>
+                <option value="OD - official college activities">OD - official college activities</option>
+                <option value="Medical Leave">Medical Leave</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Leave from date</label>
+            <input type="date" class="form-control" name="start_date" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Leave to date</label>
+            <input type="date" class="form-control" name="end_date" required>
+        </div>
+        <div class="col-12">
+            <label class="form-label">Reason</label>
+            <textarea class="form-control" name="reason" rows="4" required></textarea>
+        </div>
+        <div class="col-12">
+            <label class="form-label">Supporting document</label>
+            <input type="file" class="form-control" name="document" accept=".png,.jpg,.jpeg,.pdf">
+            <div class="form-text">The system will try OCR and AI extraction automatically from the uploaded file.</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Submit Request</button>
+</form>
+{% endblock %}

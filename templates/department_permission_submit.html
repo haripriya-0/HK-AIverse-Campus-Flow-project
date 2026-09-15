@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Department Permission</h2>
+    <a href="{{ url_for('department_permissions') }}" class="btn btn-outline-secondary">My Permissions</a>
+</div>
+<form method="POST" enctype="multipart/form-data">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Event / Activity Name</label>
+            <input type="text" class="form-control" name="event_name" value="{{ form_data.get('event_name', '') }}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Organizing Institution</label>
+            <input type="text" class="form-control" name="organization" value="{{ form_data.get('organization', '') }}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" name="date" value="{{ form_data.get('date', '') }}" required>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Start Time</label>
+            <input type="time" class="form-control" name="start_time" value="{{ form_data.get('start_time', '') }}" required>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">End Time</label>
+            <input type="time" class="form-control" name="end_time" value="{{ form_data.get('end_time', '') }}" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Venue</label>
+            <input type="text" class="form-control" name="venue" value="{{ form_data.get('venue', '') }}">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Purpose</label>
+            <input type="text" class="form-control" name="purpose" value="{{ form_data.get('purpose', '') }}" required>
+        </div>
+        <div class="col-12">
+            <label class="form-label">Reason</label>
+            <textarea class="form-control" name="reason" rows="3">{{ form_data.get('reason', '') }}</textarea>
+        </div>
+        <div class="col-12">
+            <label class="form-label">Supporting document (optional)</label>
+            <input type="file" class="form-control" name="document" accept=".png,.jpg,.jpeg,.pdf">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Submit Permission</button>
+</form>
+{% endblock %}
