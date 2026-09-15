@@ -15,6 +15,8 @@ A short demonstration of the complete workflow:
 ## [Drive link for FULL VIDEO ](https://drive.google.com/file/d/1rkMvLHo3x5VpnHMgFhfsjo_nrrIbBpP1/view?usp=drivesdk)
 
 
+## Note - in .env.example file do paste Api key for the project to execute properly.
+
 ## Features
 
  # Camus Flow - Student Permission and Leave Management System
