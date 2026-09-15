@@ -78,4 +78,4 @@ A short demonstration of the complete workflow:
 
  ## AI Usage
 
- I used GitHub Copilot to inspect the existing code, add the separate permission workflow, fix OCR date extraction and multi-day attendance updates, run syntax and behavior checks, and organize this README. I checked the suggestions against the code and kept human approval because AI and OCR can be wrong.
+I used the OpenAI API (gpt-4o-mini) for OCR and document processing to extract text and relevant details such as names, dates, and organization information from uploaded documents.
