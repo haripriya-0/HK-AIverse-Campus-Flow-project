@@ -1,6 +1,6 @@
-# OD & Medical Leave Attendance Reconciliation
+# Campus Flow - Student permissions & Leave Management System
 
-A simple Flask project for college attendance leave approval. Students submit OD/medical leave requests, coordinators approve/reject them, HODs review final decisions, and attendance is updated automatically using the timetable.
+A simple Flask project for Student permissions & college attendance leave approval. Students submit OD/medical leave requests, coordinators approve/reject them, HODs review final decisions, and attendance is updated automatically using the timetable, and any permissions for college activities can be done in minutes.
 
 # Demo
 
