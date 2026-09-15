@@ -27,7 +27,20 @@ A short demonstration of the complete workflow:
 
  ## How I Found It
 
- I studied the existing Flask routes, database tables, role checks, timetable data, document extraction, and approval flow. I did not conduct formal interviews with staff or students, so this analysis is based on the project demo and code verification rather than a live department study.
+ I started by looking at a common college administrative workflow: how students obtain permission or leave approval and how that information reaches the department and attendance records.
+
+I mapped the process from the student's request to coordinator review, HOD approval, and attendance handling. While breaking the process into individual steps, I identified several points where manual work could cause problems:
+
+- Requests can pass through multiple people before being completed.
+- Paper forms or messages can be misplaced or overlooked.
+- Students may need to repeatedly ask for the status of a request.
+- The same information may have to be recorded in more than one place.
+- Approved OD requests may require a separate attendance correction.
+- It may be difficult to identify whether a request is waiting with the coordinator or HOD.
+
+Based on this workflow analysis, I chose OD and medical leave attendance reconciliation as the main problem and later extended the system to include department permissions.
+
+This was a workflow-based analysis rather than a formal institutional study. I did not conduct interviews or collect personal student/staff data.
 
  ## Current Workflow
 
@@ -80,8 +93,8 @@ A short demonstration of the complete workflow:
 
  ## Unknowns
 
- I could not verify the real request volume, waiting time, document error rate, attendance correction error rate, or actual savings. I also did not interview the real coordinator, HOD, or students.
+ I could not verify the document error rate, actual savings. I also did not interview the real coordinator, HOD, or students.
 
  ## AI Usage
 
-I used the OpenAI API (gpt-4o-mini) for OCR and document processing to extract text and relevant details such as names, dates, and organization information from uploaded documents.
+I used the OpenAI API (gpt-4o-mini) for OCR `for document processing` to `extract text and relevant details` such as names, dates, and organization information from uploaded documents.
