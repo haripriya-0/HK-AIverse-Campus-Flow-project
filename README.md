@@ -2,6 +2,13 @@
 
 A simple Flask project for college attendance leave approval. Students submit OD/medical leave requests, coordinators approve/reject them, HODs review final decisions, and attendance is updated automatically using the timetable.
 
+# Demo
+
+A short demonstration of the complete workflow:
+
+**Student → Coordinator → HOD Approval → Attendance Reconciliation**
+
+[▶️ Watch Project Demo](https://drive.google.com/file/d/1rkMvLHo3x5VpnHMgFhfsjo_nrrIbBpP1/view?usp=drivesdk)
 ## Features
 
  # Camus Flow - Student Permission and Leave Management System
