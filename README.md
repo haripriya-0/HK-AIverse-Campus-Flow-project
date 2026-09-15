@@ -9,6 +9,8 @@ A short demonstration of the complete workflow:
 **Student → Coordinator → HOD Approval → Attendance Reconciliation**
 
 [▶️ Watch Project Demo](https://drive.google.com/file/d/1rkMvLHo3x5VpnHMgFhfsjo_nrrIbBpP1/view?usp=drivesdk)
+
+(assets/demo.mp4)
 ## Features
 
  # Camus Flow - Student Permission and Leave Management System
