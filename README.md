@@ -17,9 +17,6 @@ A short demonstration of the complete workflow:
 
 ## Note - in .env.example file do paste Api key for the project to execute properly.
 
-## Features
-
- # Camus Flow - Student Permission and Leave Management System
 
  ## Problem
 
